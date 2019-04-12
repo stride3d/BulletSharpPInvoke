@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3B28B36F-7C9F-42DD-B953-97F2898515B1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>bulletc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</key>
+		<string>github.com:SiliconStudio/bullet2-sharp-mobile.git</string>
+		<key>CD4C3EE5407ED3971827EF36ABBB3EC10DA90BD2</key>
+		<string>ssh://tecsigma.siliconstudio.co.jp:7999/pdx/paradox.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>src/iOS/bulletc/bulletc.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</key>
+		<string>../../../../..</string>
+		<key>CD4C3EE5407ED3971827EF36ABBB3EC10DA90BD2</key>
+		<string>../../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:SiliconStudio/bullet2-sharp-mobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CD4C3EE5407ED3971827EF36ABBB3EC10DA90BD2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>..</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>bullet2-sharp-mobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\VHACD">
+      <UniqueIdentifier>{770c5a6a-c4e3-4663-b2ff-4a364ea1b761}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="wrapper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\btAlignedAllocator.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\btConvexHullComputer.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\kdtree.c">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vhacdGraph.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vhacdHACD.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vhacdMesh.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\vhacdMeshDecimator.cpp">
+      <Filter>Source Files\VHACD</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

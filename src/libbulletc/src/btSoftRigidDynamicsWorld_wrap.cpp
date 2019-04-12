@@ -1,0 +1,55 @@
+#include <BulletSoftBody/btSoftRigidDynamicsWorld.h>
+#include <BulletSoftBody/btSoftBodySolvers.h>
+
+#include "conversion.h"
+#include "btSoftRigidDynamicsWorld_wrap.h"
+
+btSoftRigidDynamicsWorld* btSoftRigidDynamicsWorld_new(btDispatcher* dispatcher, btBroadphaseInterface* pairCache, btConstraintSolver* constraintSolver, btCollisionConfiguration* collisionConfiguration, btSoftBodySolver* softBodySolver)
+{
+	return new btSoftRigidDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration, softBodySolver);
+}
+
+btSoftRigidDynamicsWorld* btSoftRigidDynamicsWorld_new2(btDispatcher* dispatcher, btBroadphaseInterface* pairCache, btConstraintSolver* constraintSolver, btCollisionConfiguration* collisionConfiguration)
+{
+	return new btSoftRigidDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration);
+}
+
+void btSoftRigidDynamicsWorld_addSoftBody(btSoftRigidDynamicsWorld* obj, btSoftBody* body, short collisionFilterGroup, short collisionFilterMask)
+{
+	obj->addSoftBody(body, collisionFilterGroup, collisionFilterMask);
+}
+
+void btSoftRigidDynamicsWorld_addSoftBody2(btSoftRigidDynamicsWorld* obj, btSoftBody* body, short collisionFilterGroup)
+{
+	obj->addSoftBody(body, collisionFilterGroup);
+}
+
+void btSoftRigidDynamicsWorld_addSoftBody3(btSoftRigidDynamicsWorld* obj, btSoftBody* body)
+{
+	obj->addSoftBody(body);
+}
+
+int btSoftRigidDynamicsWorld_getDrawFlags(btSoftRigidDynamicsWorld* obj)
+{
+	return obj->getDrawFlags();
+}
+
+btSoftBodyArray* btSoftRigidDynamicsWorld_getSoftBodyArray(btSoftRigidDynamicsWorld* obj)
+{
+	return &obj->getSoftBodyArray();
+}
+
+btSoftBodyWorldInfo* btSoftRigidDynamicsWorld_getWorldInfo(btSoftRigidDynamicsWorld* obj)
+{
+	return &obj->getWorldInfo();
+}
+
+void btSoftRigidDynamicsWorld_removeSoftBody(btSoftRigidDynamicsWorld* obj, btSoftBody* body)
+{
+	obj->removeSoftBody(body);
+}
+
+void btSoftRigidDynamicsWorld_setDrawFlags(btSoftRigidDynamicsWorld* obj, int f)
+{
+	obj->setDrawFlags(f);
+}
