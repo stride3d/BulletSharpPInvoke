@@ -33,7 +33,6 @@ LOCAL_SRC_FILES := \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btDispatcher.cpp \
-   ../../../bullet/src/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp \
@@ -132,6 +131,9 @@ LOCAL_SRC_FILES := \
    ../../../bullet/src/BulletDynamics/Dynamics/btRigidBody.cpp \
    ../../../bullet/src/BulletDynamics/Dynamics/btSimpleDynamicsWorld.cpp \
    ../../../bullet/src/BulletDynamics/Character/btKinematicCharacterController.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btSdfCollisionShape.cpp \
+   ../../../bullet/src/LinearMath/btSerializer64.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btMiniSDF.cpp \
    ../../../libbulletc/src/btWheelInfo_wrap.cpp \
    ../../../libbulletc/src/btVoronoiSimplexSolver_wrap.cpp \
    ../../../libbulletc/src/btUniversalConstraint_wrap.cpp \
@@ -220,12 +222,7 @@ LOCAL_SRC_FILES := \
    ../../../libbulletc/src/btBoxBoxCollisionAlgorithm_wrap.cpp \
    ../../../libbulletc/src/btBox2dBox2dCollisionAlgorithm_wrap.cpp \
    ../../../libbulletc/src/btAxisSweep3_wrap.cpp \
-   ../../../libbulletc/src/btAlignedManifoldArray_wrap.cpp \
-   ../../../libbulletc/src/btAlignedCollisionShapeArray_wrap.cpp \
-   ../../../libbulletc/src/btAlignedCollisionObjectArray_wrap.cpp \
-   ../../../libbulletc/src/btAlignedBroadphasePairArray_wrap.cpp \
    ../../../libbulletc/src/btActionInterface_wrap.cpp \
-   ../../../libbulletc/src/btHeightfieldTerrainShape_wrap.cpp \
-   ../../../libbulletc/src/SharpMotionState.cpp   
+   ../../../libbulletc/src/btHeightfieldTerrainShape_wrap.cpp
 
    include $(BUILD_SHARED_LIBRARY)
