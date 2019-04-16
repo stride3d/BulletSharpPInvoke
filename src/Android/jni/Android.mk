@@ -2,6 +2,9 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+# Allows windows to build with large command list
+LOCAL_SHORT_COMMANDS := true
+
 LOCAL_MODULE := bulletc
 LOCAL_C_INCLUDES := \
    $(LOCAL_PATH)/../../../bullet/src \
@@ -12,8 +15,14 @@ LOCAL_C_INCLUDES := \
    $(LOCAL_PATH)/../../../bullet/src/BulletDynamics/ConstraintSolver \
    $(LOCAL_PATH)/../../../bullet/src/BulletDynamics/Dynamics \
    $(LOCAL_PATH)/../../../bullet/src/BulletDynamics/Vehicle \
+   $(LOCAL_PATH)/../../../bullet/src/BulletDynamics/Featherstone \
    $(LOCAL_PATH)/../../../bullet/src/LinearMath \
-   $(LOCAL_PATH)/../../../libbulletc/src
+   $(LOCAL_PATH)/../../../bullet/Extras/Serialize/BulletFileLoader \
+   $(LOCAL_PATH)/../../../bullet/Extras/Serialize/BulletWorldImporter \
+   $(LOCAL_PATH)/../../../bullet/Extras/Serialize/BulletXmlWorldImporter \
+   $(LOCAL_PATH)/../../../bullet/examples/ThirdPartyLibs/tinyxml2 \
+   $(LOCAL_PATH)/../../../bullet/Extras/HACD \
+   $(LOCAL_PATH)/../../../libbulletc/src \
 
 
 LOCAL_ARM_MODE := arm
@@ -21,27 +30,24 @@ LOCAL_CFLAGS := $(LOCAL_C_INCLUDES:%=-I%) -O3 -DANDROID_NDK
 LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -ldl -llog
 
 LOCAL_SRC_FILES := \
-   ../../../bullet/src/LinearMath/btVector3.cpp \
-   ../../../bullet/src/LinearMath/btPolarDecomposition.cpp \
-   ../../../bullet/src/LinearMath/btConvexHullComputer.cpp \
-   ../../../bullet/src/LinearMath/btConvexHull.cpp \
-   ../../../bullet/src/LinearMath/btAlignedAllocator.cpp \
-   ../../../bullet/src/LinearMath/btGeometryUtil.cpp \
-   ../../../bullet/src/LinearMath/btQuickprof.cpp \
-   ../../../bullet/src/LinearMath/btSerializer.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletCollision/BroadphaseCollision/btDbvt.cpp \
+   ../../../bullet/src/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btDispatcher.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp \
-   ../../../bullet/src/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp \
-   ../../../bullet/src/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp \
    ../../../bullet/src/BulletCollision/BroadphaseCollision/btQuantizedBvh.cpp \
-   ../../../bullet/src/BulletCollision/BroadphaseCollision/btDbvt.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp \
+   ../../../bullet/src/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btBoxBoxDetector.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionDispatcherMt.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionObject.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionWorld.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btCollisionWorldImporter.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btCompoundCompoundCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp \
@@ -50,21 +56,18 @@ LOCAL_SRC_FILES := \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btManifoldResult.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btGhostObject.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btHashedSimplePairCache.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp \
+   ../../../bullet/src/BulletCollision/CollisionDispatch/btManifoldResult.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btSimulationIslandManager.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/btUnionFind.cpp \
    ../../../bullet/src/BulletCollision/CollisionDispatch/SphereTriangleDetector.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btBoxBoxDetector.cpp \
-   ../../../bullet/src/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp \
-   ../../../bullet/src/BulletCollision/CollisionShapes/btBoxShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btBox2dShape.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btBoxShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btCapsuleShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btCollisionShape.cpp \
@@ -81,12 +84,14 @@ LOCAL_SRC_FILES := \
    ../../../bullet/src/BulletCollision/CollisionShapes/btCylinderShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btEmptyShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btMiniSDF.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp \
-   ../../../bullet/src/BulletCollision/CollisionShapes/btMultiSphereShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btMultiSphereShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btOptimizedBvh.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btSdfCollisionShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btShapeHull.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btSphereShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btStaticPlaneShape.cpp \
@@ -95,134 +100,271 @@ LOCAL_SRC_FILES := \
    ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleBuffer.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleCallback.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.cpp \
+   ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleMesh.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp \
    ../../../bullet/src/BulletCollision/CollisionShapes/btUniformScalingShape.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btContactProcessing.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btGenericPoolAllocator.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btGImpactBvh.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btGImpactQuantizedBvh.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btGImpactShape.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/btTriangleShapeEx.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/gim_box_set.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/gim_contact.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/gim_memory.cpp \
+   ../../../bullet/src/BulletCollision/Gimpact/gim_tri_collision.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btConvexCast.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.cpp \
+   ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btGjkEpa2.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp \
+   ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btPolyhedralContactClipping.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp \
    ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp \
-   ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btPolyhedralContactClipping.cpp \
-   ../../../bullet/src/BulletCollision/NarrowPhaseCollision/btGjkEpa2.cpp \
-   ../../../bullet/src/BulletDynamics/Vehicle/btRaycastVehicle.cpp \
-   ../../../bullet/src/BulletDynamics/Vehicle/btWheelInfo.cpp \
+   ../../../bullet/src/BulletDynamics/Character/btKinematicCharacterController.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btBatchedConstraints.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btContactConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btFixedConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btGearConstraint.cpp \
-   ../../../bullet/src/BulletDynamics/ConstraintSolver/btContactConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.cpp \
-   ../../../bullet/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpring2Constraint.cpp \
-   ../../../bullet/src/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btHinge2Constraint.cpp \
-   ../../../bullet/src/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btNNCGConstraintSolver.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolverMt.cpp \
+   ../../../bullet/src/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp \
    ../../../bullet/src/BulletDynamics/ConstraintSolver/btUniversalConstraint.cpp \
    ../../../bullet/src/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.cpp \
+   ../../../bullet/src/BulletDynamics/Dynamics/btDiscreteDynamicsWorldMt.cpp \
    ../../../bullet/src/BulletDynamics/Dynamics/btRigidBody.cpp \
    ../../../bullet/src/BulletDynamics/Dynamics/btSimpleDynamicsWorld.cpp \
-   ../../../bullet/src/BulletDynamics/Character/btKinematicCharacterController.cpp \
-   ../../../bullet/src/BulletCollision/CollisionShapes/btSdfCollisionShape.cpp \
+   ../../../bullet/src/BulletDynamics/Dynamics/btSimulationIslandManagerMt.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBody.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyConstraintSolver.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyDynamicsWorld.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyFixedConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyGearConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyJointLimitConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyJointMotor.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyMLCPConstraintSolver.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodyPoint2Point.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodySliderConstraint.cpp \
+   ../../../bullet/src/BulletDynamics/Featherstone/btMultiBodySphericalJointMotor.cpp \
+   ../../../bullet/src/BulletDynamics/MLCPSolvers/btDantzigLCP.cpp \
+   ../../../bullet/src/BulletDynamics/MLCPSolvers/btLemkeAlgorithm.cpp \
+   ../../../bullet/src/BulletDynamics/MLCPSolvers/btMLCPSolver.cpp \
+   ../../../bullet/src/BulletDynamics/Vehicle/btRaycastVehicle.cpp \
+   ../../../bullet/src/BulletDynamics/Vehicle/btWheelInfo.cpp \
+   ../../../bullet/src/BulletSoftBody/btDefaultSoftBodySolver.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftBody.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftBodyHelpers.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftMultiBodyDynamicsWorld.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftRigidDynamicsWorld.cpp \
+   ../../../bullet/src/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp \
+   ../../../bullet/src/LinearMath/btAlignedAllocator.cpp \
+   ../../../bullet/src/LinearMath/btConvexHull.cpp \
+   ../../../bullet/src/LinearMath/btConvexHullComputer.cpp \
+   ../../../bullet/src/LinearMath/btGeometryUtil.cpp \
+   ../../../bullet/src/LinearMath/btPolarDecomposition.cpp \
+   ../../../bullet/src/LinearMath/btQuickprof.cpp \
+   ../../../bullet/src/LinearMath/btSerializer.cpp \
    ../../../bullet/src/LinearMath/btSerializer64.cpp \
-   ../../../bullet/src/BulletCollision/CollisionShapes/btMiniSDF.cpp \
-   ../../../libbulletc/src/btWheelInfo_wrap.cpp \
-   ../../../libbulletc/src/btVoronoiSimplexSolver_wrap.cpp \
-   ../../../libbulletc/src/btUniversalConstraint_wrap.cpp \
-   ../../../libbulletc/src/btUniformScalingShape_wrap.cpp \
-   ../../../libbulletc/src/btTypedConstraint_wrap.cpp \
-   ../../../libbulletc/src/btTriangleMeshShape_wrap.cpp \
-   ../../../libbulletc/src/btTriangleMesh_wrap.cpp \
-   ../../../libbulletc/src/btTriangleIndexVertexArray_wrap.cpp \
-   ../../../libbulletc/src/btTransformUtil_wrap.cpp \
-   ../../../libbulletc/src/btStridingMeshInterface_wrap.cpp \
-   ../../../libbulletc/src/btStaticPlaneShape_wrap.cpp \
-   ../../../libbulletc/src/btSphereTriangleCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btSphereSphereCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btSphereShape_wrap.cpp \
-   ../../../libbulletc/src/btSphereBoxCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btSliderConstraint_wrap.cpp \
-   ../../../libbulletc/src/btSimulationIslandManager_wrap.cpp \
-   ../../../libbulletc/src/btShapeHull_wrap.cpp \
-   ../../../libbulletc/src/btSerializer_wrap.cpp \
-   ../../../libbulletc/src/btSequentialImpulseConstraintSolver_wrap.cpp \
-   ../../../libbulletc/src/btScaledBvhTriangleMeshShape_wrap.cpp \
-   ../../../libbulletc/src/btRigidBody_wrap.cpp \
-   ../../../libbulletc/src/btRaycastVehicle_wrap.cpp \
-   ../../../libbulletc/src/btPolyhedralConvexShape_wrap.cpp \
-   ../../../libbulletc/src/btPolarDecomposition_wrap.cpp \
-   ../../../libbulletc/src/btPointCollector_wrap.cpp \
-   ../../../libbulletc/src/btPoint2PointConstraint_wrap.cpp \
-   ../../../libbulletc/src/btPersistentManifold_wrap.cpp \
-   ../../../libbulletc/src/btOverlappingPairCallback_wrap.cpp \
-   ../../../libbulletc/src/btOverlappingPairCache_wrap.cpp \
-   ../../../libbulletc/src/btMultiSphereShape_wrap.cpp \
-   ../../../libbulletc/src/btMinkowskiPenetrationDepthSolver_wrap.cpp \
-   ../../../libbulletc/src/btManifoldPoint_wrap.cpp \
-   ../../../libbulletc/src/btKinematicCharacterController_wrap.cpp \
-   ../../../libbulletc/src/btHingeConstraint_wrap.cpp \
-   ../../../libbulletc/src/btHinge2Constraint_wrap.cpp \
-   ../../../libbulletc/src/btGjkPairDetector_wrap.cpp \
-   ../../../libbulletc/src/btGhostObject_wrap.cpp \
-   ../../../libbulletc/src/btGeometryUtil_wrap.cpp \
-   ../../../libbulletc/src/btGeneric6DofSpringConstraint_wrap.cpp \
-   ../../../libbulletc/src/btGeneric6DofConstraint_wrap.cpp \
-   ../../../libbulletc/src/btGearConstraint_wrap.cpp \
-   ../../../libbulletc/src/btFixedConstraint_wrap.cpp \
-   ../../../libbulletc/src/btEmptyCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btDynamicsWorld_wrap.cpp \
-   ../../../libbulletc/src/btDispatcher_wrap.cpp \
-   ../../../libbulletc/src/btDiscreteDynamicsWorld_wrap.cpp \
-   ../../../libbulletc/src/btDiscreteCollisionDetectorInterface_wrap.cpp \
-   ../../../libbulletc/src/btDefaultMotionState_wrap.cpp \
-   ../../../libbulletc/src/btDefaultCollisionConfiguration_wrap.cpp \
-   ../../../libbulletc/src/btDbvtBroadphase_wrap.cpp \
-   ../../../libbulletc/src/btCylinderShape_wrap.cpp \
-   ../../../libbulletc/src/btConvexTriangleMeshShape_wrap.cpp \
-   ../../../libbulletc/src/btConvexShape_wrap.cpp \
-   ../../../libbulletc/src/btConvexPolyhedron_wrap.cpp \
-   ../../../libbulletc/src/btConvexPlaneCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btConvexPenetrationDepthSolver_wrap.cpp \
-   ../../../libbulletc/src/btConvexInternalShape_wrap.cpp \
-   ../../../libbulletc/src/btConvexHullShape_wrap.cpp \
-   ../../../libbulletc/src/btConvexConvexAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btConvexConcaveCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btConvex2dShape_wrap.cpp \
-   ../../../libbulletc/src/btConvex2dConvex2dAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btContactSolverInfo_wrap.cpp \
-   ../../../libbulletc/src/btConstraintSolver_wrap.cpp \
-   ../../../libbulletc/src/btConeTwistConstraint_wrap.cpp \
-   ../../../libbulletc/src/btConeShape_wrap.cpp \
-   ../../../libbulletc/src/btCompoundShape_wrap.cpp \
-   ../../../libbulletc/src/btCompoundCompoundCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btCompoundCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btCollisionWorld_wrap.cpp \
-   ../../../libbulletc/src/btCollisionShape_wrap.cpp \
-   ../../../libbulletc/src/btCollisionObjectWrapper_wrap.cpp \
-   ../../../libbulletc/src/btCollisionObject_wrap.cpp \
-   ../../../libbulletc/src/btCollisionDispatcher_wrap.cpp \
-   ../../../libbulletc/src/btCollisionCreateFunc_wrap.cpp \
-   ../../../libbulletc/src/btCollisionConfiguration_wrap.cpp \
-   ../../../libbulletc/src/btCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btCharacterControllerInterface_wrap.cpp \
-   ../../../libbulletc/src/btCapsuleShape_wrap.cpp \
-   ../../../libbulletc/src/btBvhTriangleMeshShape_wrap.cpp \
-   ../../../libbulletc/src/btBroadphaseProxy_wrap.cpp \
-   ../../../libbulletc/src/btBroadphaseInterface_wrap.cpp \
-   ../../../libbulletc/src/btBoxShape_wrap.cpp \
-   ../../../libbulletc/src/btBoxCollision_wrap.cpp \
-   ../../../libbulletc/src/btBoxBoxCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btBox2dBox2dCollisionAlgorithm_wrap.cpp \
-   ../../../libbulletc/src/btAxisSweep3_wrap.cpp \
+   ../../../bullet/src/LinearMath/btThreads.cpp \
+   ../../../bullet/src/LinearMath/btVector3.cpp \
+   ../../../bullet/src/LinearMath/TaskScheduler/btTaskScheduler.cpp \
+   ../../../bullet/src/LinearMath/TaskScheduler/btThreadSupportPosix.cpp \
+   ../../../bullet/src/LinearMath/TaskScheduler/btThreadSupportWin32.cpp \
+   ../../../bullet/Extras/Serialize/BulletFileLoader/bChunk.cpp \
+   ../../../bullet/Extras/Serialize/BulletFileLoader/bDNA.cpp \
+   ../../../bullet/Extras/Serialize/BulletFileLoader/bFile.cpp \
+   ../../../bullet/Extras/Serialize/BulletFileLoader/btBulletFile.cpp \
+   ../../../bullet/Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp \
+   ../../../bullet/Extras/Serialize/BulletWorldImporter/btMultiBodyWorldImporter.cpp \
+   ../../../bullet/Extras/Serialize/BulletWorldImporter/btWorldImporter.cpp \
+   ../../../bullet/Extras/Serialize/BulletXmlWorldImporter/btBulletXmlWorldImporter.cpp \
+   ../../../bullet/Extras/Serialize/BulletXmlWorldImporter/string_split.cpp \
+   ../../../bullet/examples/ThirdPartyLibs/tinyxml2/tinyxml2.cpp \
+   ../../../bullet/Extras/HACD/hacdGraph.cpp \
+   ../../../bullet/Extras/HACD/hacdHACD.cpp \
+   ../../../bullet/Extras/HACD/hacdICHull.cpp \
+   ../../../bullet/Extras/HACD/hacdManifoldMesh.cpp \
    ../../../libbulletc/src/btActionInterface_wrap.cpp \
-   ../../../libbulletc/src/btHeightfieldTerrainShape_wrap.cpp
+   ../../../libbulletc/src/btAlignedObjectArray_wrap.cpp \
+   ../../../libbulletc/src/btAxisSweep3_wrap.cpp \
+   ../../../libbulletc/src/btBox2dBox2dCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btBox2dShape_wrap.cpp \
+   ../../../libbulletc/src/btBoxBoxCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btBoxBoxDetector_wrap.cpp \
+   ../../../libbulletc/src/btBoxCollision_wrap.cpp \
+   ../../../libbulletc/src/btBoxShape_wrap.cpp \
+   ../../../libbulletc/src/btBroadphaseInterface_wrap.cpp \
+   ../../../libbulletc/src/btBroadphaseProxy_wrap.cpp \
+   ../../../libbulletc/src/btBulletFile_wrap.cpp \
+   ../../../libbulletc/src/btBulletWorldImporter_wrap.cpp \
+   ../../../libbulletc/src/btBulletXmlWorldImporter_wrap.cpp \
+   ../../../libbulletc/src/btBvhTriangleMeshShape_wrap.cpp \
+   ../../../libbulletc/src/btCapsuleShape_wrap.cpp \
+   ../../../libbulletc/src/btCharacterControllerInterface_wrap.cpp \
+   ../../../libbulletc/src/btCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btCollisionConfiguration_wrap.cpp \
+   ../../../libbulletc/src/btCollisionCreateFunc_wrap.cpp \
+   ../../../libbulletc/src/btCollisionDispatcher_wrap.cpp \
+   ../../../libbulletc/src/btCollisionDispatcherMt_wrap.cpp \
+   ../../../libbulletc/src/btCollisionObject_wrap.cpp \
+   ../../../libbulletc/src/btCollisionObjectWrapper_wrap.cpp \
+   ../../../libbulletc/src/btCollisionShape_wrap.cpp \
+   ../../../libbulletc/src/btCollisionWorld_wrap.cpp \
+   ../../../libbulletc/src/btCompoundCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btCompoundCompoundCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btCompoundFromGimpact_wrap.cpp \
+   ../../../libbulletc/src/btCompoundShape_wrap.cpp \
+   ../../../libbulletc/src/btConcaveShape_wrap.cpp \
+   ../../../libbulletc/src/btConeShape_wrap.cpp \
+   ../../../libbulletc/src/btConeTwistConstraint_wrap.cpp \
+   ../../../libbulletc/src/btConstraintSolver_wrap.cpp \
+   ../../../libbulletc/src/btContactConstraint_wrap.cpp \
+   ../../../libbulletc/src/btContactSolverInfo_wrap.cpp \
+   ../../../libbulletc/src/btContinuousConvexCollision_wrap.cpp \
+   ../../../libbulletc/src/btConvex2dConvex2dAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btConvex2dShape_wrap.cpp \
+   ../../../libbulletc/src/btConvexCast_wrap.cpp \
+   ../../../libbulletc/src/btConvexConcaveCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btConvexConvexAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btConvexHullShape_wrap.cpp \
+   ../../../libbulletc/src/btConvexInternalShape_wrap.cpp \
+   ../../../libbulletc/src/btConvexPenetrationDepthSolver_wrap.cpp \
+   ../../../libbulletc/src/btConvexPlaneCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btConvexPointCloudShape_wrap.cpp \
+   ../../../libbulletc/src/btConvexPolyhedron_wrap.cpp \
+   ../../../libbulletc/src/btConvexShape_wrap.cpp \
+   ../../../libbulletc/src/btConvexTriangleMeshShape_wrap.cpp \
+   ../../../libbulletc/src/btCpuFeatureUtility_wrap.cpp \
+   ../../../libbulletc/src/btCylinderShape_wrap.cpp \
+   ../../../libbulletc/src/btDantzigSolver_wrap.cpp \
+   ../../../libbulletc/src/btDbvt_wrap.cpp \
+   ../../../libbulletc/src/btDbvtBroadphase_wrap.cpp \
+   ../../../libbulletc/src/btDefaultCollisionConfiguration_wrap.cpp \
+   ../../../libbulletc/src/btDefaultMotionState_wrap.cpp \
+   ../../../libbulletc/src/btDefaultSoftBodySolver_wrap.cpp \
+   ../../../libbulletc/src/btDiscreteCollisionDetectorInterface_wrap.cpp \
+   ../../../libbulletc/src/btDiscreteDynamicsWorld_wrap.cpp \
+   ../../../libbulletc/src/btDiscreteDynamicsWorldMt_wrap.cpp \
+   ../../../libbulletc/src/btDispatcher_wrap.cpp \
+   ../../../libbulletc/src/btDynamicsWorld_wrap.cpp \
+   ../../../libbulletc/src/btEmptyCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btEmptyShape_wrap.cpp \
+   ../../../libbulletc/src/btFixedConstraint_wrap.cpp \
+   ../../../libbulletc/src/btGearConstraint_wrap.cpp \
+   ../../../libbulletc/src/btGeneric6DofConstraint_wrap.cpp \
+   ../../../libbulletc/src/btGeneric6DofSpring2Constraint_wrap.cpp \
+   ../../../libbulletc/src/btGeneric6DofSpringConstraint_wrap.cpp \
+   ../../../libbulletc/src/btGeometryUtil_wrap.cpp \
+   ../../../libbulletc/src/btGhostObject_wrap.cpp \
+   ../../../libbulletc/src/btGImpactBvh_wrap.cpp \
+   ../../../libbulletc/src/btGImpactCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btGImpactQuantizedBvh_wrap.cpp \
+   ../../../libbulletc/src/btGImpactShape_wrap.cpp \
+   ../../../libbulletc/src/btGjkConvexCast_wrap.cpp \
+   ../../../libbulletc/src/btGjkEpaPenetrationDepthSolver_wrap.cpp \
+   ../../../libbulletc/src/btGjkPairDetector_wrap.cpp \
+   ../../../libbulletc/src/btHeightfieldTerrainShape_wrap.cpp \
+   ../../../libbulletc/src/btHinge2Constraint_wrap.cpp \
+   ../../../libbulletc/src/btHingeConstraint_wrap.cpp \
+   ../../../libbulletc/src/btIDebugDraw_wrap.cpp \
+   ../../../libbulletc/src/btKinematicCharacterController_wrap.cpp \
+   ../../../libbulletc/src/btLemkeSolver_wrap.cpp \
+   ../../../libbulletc/src/btManifoldPoint_wrap.cpp \
+   ../../../libbulletc/src/btManifoldResult_wrap.cpp \
+   ../../../libbulletc/src/btMinkowskiPenetrationDepthSolver_wrap.cpp \
+   ../../../libbulletc/src/btMinkowskiSumShape_wrap.cpp \
+   ../../../libbulletc/src/btMLCPSolver_wrap.cpp \
+   ../../../libbulletc/src/btMLCPSolverInterface_wrap.cpp \
+   ../../../libbulletc/src/btMotionState_wrap.cpp \
+   ../../../libbulletc/src/btMultiBody_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyConstraint_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyConstraintSolver_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyDynamicsWorld_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyFixedConstraint_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyJointLimitConstraint_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyJointMotor_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyLink_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyLinkCollider_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodyPoint2Point_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodySliderConstraint_wrap.cpp \
+   ../../../libbulletc/src/btMultiBodySolverConstraint_wrap.cpp \
+   ../../../libbulletc/src/btMultimaterialTriangleMeshShape_wrap.cpp \
+   ../../../libbulletc/src/btMultiSphereShape_wrap.cpp \
+   ../../../libbulletc/src/btNNCGConstraintSolver_wrap.cpp \
+   ../../../libbulletc/src/btOptimizedBvh_wrap.cpp \
+   ../../../libbulletc/src/btOverlappingPairCache_wrap.cpp \
+   ../../../libbulletc/src/btOverlappingPairCallback_wrap.cpp \
+   ../../../libbulletc/src/btPersistentManifold_wrap.cpp \
+   ../../../libbulletc/src/btPoint2PointConstraint_wrap.cpp \
+   ../../../libbulletc/src/btPointCollector_wrap.cpp \
+   ../../../libbulletc/src/btPolarDecomposition_wrap.cpp \
+   ../../../libbulletc/src/btPolyhedralConvexShape_wrap.cpp \
+   ../../../libbulletc/src/btQuantizedBvh_wrap.cpp \
+   ../../../libbulletc/src/btRaycastVehicle_wrap.cpp \
+   ../../../libbulletc/src/btRigidBody_wrap.cpp \
+   ../../../libbulletc/src/btScaledBvhTriangleMeshShape_wrap.cpp \
+   ../../../libbulletc/src/btSequentialImpulseConstraintSolver_wrap.cpp \
+   ../../../libbulletc/src/btSequentialImpulseConstraintSolverMt_wrap.cpp \
+   ../../../libbulletc/src/btSerializer_wrap.cpp \
+   ../../../libbulletc/src/btShapeHull_wrap.cpp \
+   ../../../libbulletc/src/btSimulationIslandManager_wrap.cpp \
+   ../../../libbulletc/src/btSliderConstraint_wrap.cpp \
+   ../../../libbulletc/src/btSoftBody_wrap.cpp \
+   ../../../libbulletc/src/btSoftBodyConcaveCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btSoftBodyHelpers_wrap.cpp \
+   ../../../libbulletc/src/btSoftBodyRigidBodyCollisionConfiguration_wrap.cpp \
+   ../../../libbulletc/src/btSoftBodySolvers_wrap.cpp \
+   ../../../libbulletc/src/btSoftRigidCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btSoftRigidDynamicsWorld_wrap.cpp \
+   ../../../libbulletc/src/btSoftSoftCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btSparseSdf3_wrap.cpp \
+   ../../../libbulletc/src/btSphereBoxCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btSphereShape_wrap.cpp \
+   ../../../libbulletc/src/btSphereSphereCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btSphereTriangleCollisionAlgorithm_wrap.cpp \
+   ../../../libbulletc/src/btStaticPlaneShape_wrap.cpp \
+   ../../../libbulletc/src/btStridingMeshInterface_wrap.cpp \
+   ../../../libbulletc/src/btTetrahedronShape_wrap.cpp \
+   ../../../libbulletc/src/btThreads_wrap.cpp \
+   ../../../libbulletc/src/btTransformUtil_wrap.cpp \
+   ../../../libbulletc/src/btTriangleBuffer_wrap.cpp \
+   ../../../libbulletc/src/btTriangleCallback_wrap.cpp \
+   ../../../libbulletc/src/btTriangleIndexVertexArray_wrap.cpp \
+   ../../../libbulletc/src/btTriangleIndexVertexMaterialArray_wrap.cpp \
+   ../../../libbulletc/src/btTriangleInfoMap_wrap.cpp \
+   ../../../libbulletc/src/btTriangleMesh_wrap.cpp \
+   ../../../libbulletc/src/btTriangleMeshShape_wrap.cpp \
+   ../../../libbulletc/src/btTriangleShape_wrap.cpp \
+   ../../../libbulletc/src/btTriangleShapeEx_wrap.cpp \
+   ../../../libbulletc/src/btTypedConstraint_wrap.cpp \
+   ../../../libbulletc/src/btUniformScalingShape_wrap.cpp \
+   ../../../libbulletc/src/btUnionFind_wrap.cpp \
+   ../../../libbulletc/src/btUniversalConstraint_wrap.cpp \
+   ../../../libbulletc/src/btVehicleRaycaster_wrap.cpp \
+   ../../../libbulletc/src/btVoronoiSimplexSolver_wrap.cpp \
+   ../../../libbulletc/src/btWheelInfo_wrap.cpp \
+   ../../../libbulletc/src/btWorldImporter_wrap.cpp \
+   ../../../libbulletc/src/collections.cpp \
+   ../../../libbulletc/src/hacdHACD_wrap.cpp \
 
    include $(BUILD_SHARED_LIBRARY)
