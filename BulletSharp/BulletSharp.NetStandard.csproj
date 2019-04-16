@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Compile Remove="demos\**" />
+        <EmbeddedResource Remove="demos\**" />
+        <None Remove="demos\**" />
+        <Compile Remove="test\**" />
+        <EmbeddedResource Remove="test\**" />
+        <None Remove="test\**" />
+        <Compile Remove="Properties\**" />
+        <EmbeddedResource Remove="Properties\**" />
+        <None Remove="Properties\**" />
+    </ItemGroup>
+
+</Project>
