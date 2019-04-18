@@ -26,6 +26,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace BulletSharp.Math
 {
@@ -1344,5 +1345,17 @@ namespace BulletSharp.Math
             return new Quaternion(value.X, value.Y, value.Z, value.W);
         }
 #endif
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Xenko.Core.Mathematics.Quaternion(Quaternion value)
+        {
+            unsafe { return *(Xenko.Core.Mathematics.Quaternion*)&value; }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Quaternion(Xenko.Core.Mathematics.Quaternion value)
+        {
+            unsafe { return *(Quaternion*)&value; }
+        }
     }
 }

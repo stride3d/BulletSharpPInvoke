@@ -26,6 +26,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace BulletSharp.Math
 {
@@ -3029,6 +3030,62 @@ namespace BulletSharp.Math
             };
         }
 #endif
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Xenko.Core.Mathematics.Matrix(Matrix value)
+        {
+            // 11, 22, 33 & 44's offsets are shared, ~10% faster
+            Xenko.Core.Mathematics.Matrix d;
+            unsafe
+            {
+                d = *(Xenko.Core.Mathematics.Matrix*)&value;
+            }
+            //11
+            d.M12 = value.M12;
+            d.M13 = value.M13;
+            d.M14 = value.M14;
+            d.M21 = value.M21;
+            //22
+            d.M23 = value.M23;
+            d.M24 = value.M24;
+            d.M31 = value.M31;
+            d.M32 = value.M32;
+            //33
+            d.M34 = value.M34;
+            d.M41 = value.M41;
+            d.M42 = value.M42;
+            d.M43 = value.M43;
+            //44
+            return d;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Matrix(Xenko.Core.Mathematics.Matrix value)
+        {
+            // 11, 22, 33 & 44's offsets are shared, ~10% faster
+            Matrix d;
+            unsafe
+            {
+                d = *(Matrix*)&value;
+            }
+            //11
+            d.M12 = value.M12;
+            d.M13 = value.M13;
+            d.M14 = value.M14;
+            d.M21 = value.M21;
+            //22
+            d.M23 = value.M23;
+            d.M24 = value.M24;
+            d.M31 = value.M31;
+            d.M32 = value.M32;
+            //33
+            d.M34 = value.M34;
+            d.M41 = value.M41;
+            d.M42 = value.M42;
+            d.M43 = value.M43;
+            //44
+            return d;
+        }
     }
 
     [StructLayout(LayoutKind.Sequential)]

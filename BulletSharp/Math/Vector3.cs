@@ -24,6 +24,7 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BulletSharp.Math
 {
@@ -1909,6 +1910,18 @@ namespace BulletSharp.Math
             return new Vector3(value.X, value.Y, value.Z);
         }
 #endif
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Xenko.Core.Mathematics.Vector3(Vector3 value)
+        {
+            unsafe { return *(Xenko.Core.Mathematics.Vector3*)&value; }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Vector3(Xenko.Core.Mathematics.Vector3 value)
+        {
+            unsafe { return *(Vector3*)&value; }
+        }
     }
 
     [StructLayout(LayoutKind.Sequential)]
