@@ -38,7 +38,6 @@ LOCAL_C_INCLUDES := \
    $(LOCAL_PATH)/bullet/examples/ThirdPartyLibs/tinyxml2 \
    $(LOCAL_PATH)/libbulletc/src \
 
-#find all the file recursively under jni/
 FILE_LIST := $(wildcard \
 		$(LOCAL_PATH)/bullet/src/LinearMath/*.cpp \
 		$(LOCAL_PATH)/bullet/src/Bullet3Common/*.cpp \
