@@ -18,7 +18,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="Xenko.Core.Mathematics" Version="3.1.0.1-beta02-0550" />
+      <PackageReference Include="Xenko.Core.Mathematics" Version="[0.0.0.0-a,]" />
     </ItemGroup>
 
 </Project>
