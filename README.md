@@ -4,9 +4,8 @@ libbulletc => C++ wrapper
 BulletSharp => C# wrapper around C++ wrapper
 src => build scripts
 
-
 Building bullet and its C++ wrapper:
-	Windows:
+	Windows x64/x86:
 		[Make](http://gnuwin32.sourceforge.net/packages/make.htm) -> Setup program.
 		[Clang](http://releases.llvm.org/download.html) -> Windows 64 under Pre-Built Binaries.
 		Verify that they all have set their path within your environment variables.
@@ -15,6 +14,10 @@ Building bullet and its C++ wrapper:
 				C:\Program Files (x86)\GnuWin32\bin
 				C:\Program Files\LLVM\bin
 		> build_win.bat
+	Windows Store / UWP / x64 / x86 / ARM msbuild:
+		Install Visual Studio 2015+ with C++, cmake and Windows Store/UWP requirements.
+		> msbuild_winstore.bat
+		If you run into any issue (which you most likely will) good luck, CMake wants to build everything, you'll have to fiddle around with it.
 	Unix:
 	Mac:
 	Android under Windows:
