@@ -2,7 +2,6 @@ TOP = $(call my-dir)..
 
 include $(CLEAR_VARS)
 
-
 INCLUDE = \
    -I$(TOP)/bullet/src \
    -I$(TOP)/bullet/Extras/Serialize/BulletFileLoader \
@@ -14,47 +13,28 @@ INCLUDE = \
 
 CFLAGS = $(INCLUDE) -O3 -Wall -Wno-unused-variable -std=c++14
 LDFLAGS = --shared
-LIBS = 
+LIBS =
 EXTENSION = 
-MKDIR = 
+86_TARGET =
+64_TARGET =
 
 
 ifeq ($(OS),Windows_NT)
-	#CFLAGS += -target x86_64-pc-windows-gnu -stdlib=libstdc++
-	#LDFLAGS += -stdlib=libstdc++
 	EXTENSION = dll
-	#CCFLAGS += -D WIN32
-	#ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-	#	CCFLAGS += -D AMD64
-	#else
-	#	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-	#		CCFLAGS += -D AMD64
-	#	endif
-	#	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-	#		CCFLAGS += -D IA32
-	#	endif
-	#endif
+	86_TARGET = -target i686-pc-windows-gnu
+	64_TARGET = -target x86_64-pc-windows-gnu
 else
+	LIBS = -ldl
 	CFLAGS += -fPIC
+	86_TARGET = -m32
+	64_TARGET = -m64
+
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		EXTENSION = so
-		#CCFLAGS += -D LINUX
 	endif
 	ifeq ($(UNAME_S),Darwin)
 		EXTENSION = dylib
-		#CCFLAGS += -D OSX
-	endif
-
-	UNAME_P := $(shell uname -p)
-	ifeq ($(UNAME_P),x86_64)
-		#CCFLAGS += -D AMD64
-	endif
-	ifneq ($(filter %86,$(UNAME_P)),)
-		#CCFLAGS += -D IA32
-	endif
-	ifneq ($(filter arm%,$(UNAME_P)),)
-		#CCFLAGS += -D ARM
 	endif
 endif
 
@@ -66,6 +46,12 @@ ifeq ($(WIN_ARCH_CUSTOM),x64)
 endif
 ifeq ($(WIN_ARCH_CUSTOM),x86)
 	COMM = x86/libbulletc.$(EXTENSION)
+endif
+ifeq ($(DETERMINISTIC_BUILD),true)
+# The SSE2 instructions (...) are fully IEEE754-1985 compliant, and they permit better reproducibility 
+# (thanks to the static rounding precision) and portability with other platforms. 
+# -Muller et aliis, Handbook of Floating-Point Arithmetic - p.107
+	CFLAGS += -msse2 -mfpmath=sse
 endif
 
 FILE_LIST := $(wildcard \
@@ -100,8 +86,7 @@ OBJECTS=$(LOCAL_SRC_FILES:.cpp=.o)
 all: $(COMM)
 
 x64/libbulletc.$(EXTENSION): $(LOCAL_SRC_FILES)
-	clang++ -target x86_64-pc-windows-gnu $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
+	clang++ $(64_TARGET) $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
 
 x86/libbulletc.$(EXTENSION): $(LOCAL_SRC_FILES)
-	clang++ -target i686-pc-windows-gnu $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
-
+	clang++ $(86_TARGET) $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
