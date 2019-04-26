@@ -1144,15 +1144,3 @@ typedef bool (*HACD_CallBackFunction)(const char *, double, double, size_t);
 #define HACD_Vec3_Real HACD::Vec3<HACD::Real>
 #define HACD_CallBackFunction HACD::CallBackFunction
 #endif
-
-#ifndef SPU_GATHERING_COLLISION_TASK_H
-#if defined(_WIN64)
-	typedef unsigned __int64 ppu_address_t;
-#elif defined(__LP64__) || defined(__x86_64__)
-	typedef unsigned long int ppu_address_t;
-#else
-	typedef unsigned int ppu_address_t;
-#endif
-#define CollisionTask_LocalStoreMemory void
-#define SpuGatherAndProcessPairsTaskDesc void
-#endif
