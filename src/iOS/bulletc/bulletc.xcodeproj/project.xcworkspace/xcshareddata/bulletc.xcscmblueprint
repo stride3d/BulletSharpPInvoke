@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D74A9AE93D17CADB90FE56C78EF07438F806F536",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CD02AD23789515AF5D416F876100FE38242DE7E4" : 9223372036854775807,
+    "D74A9AE93D17CADB90FE56C78EF07438F806F536" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3B28B36F-7C9F-42DD-B953-97F2898515B1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CD02AD23789515AF5D416F876100FE38242DE7E4" : "BulletSharpPInvoke\/bullet\/",
+    "D74A9AE93D17CADB90FE56C78EF07438F806F536" : "BulletSharpPInvoke\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "bulletc",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "src\/iOS_2\/bulletc\/bulletc.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/bulletphysics\/bullet3.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD02AD23789515AF5D416F876100FE38242DE7E4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Eideren\/BulletSharpPInvoke.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D74A9AE93D17CADB90FE56C78EF07438F806F536"
+    }
+  ]
+}
