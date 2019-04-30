@@ -8,6 +8,8 @@ Clang is documented here to try to ensure determinism across platforms, as are t
 
 ---
 
+## MAKE SURE YOU PULLED SUBMODULES WITH THIS REPO
+
 ##### Building bullet and its C++ wrapper:
 - Windows x64 / x86:
 	- [Make](http://gnuwin32.sourceforge.net/packages/make.htm) -> Setup program.
@@ -21,9 +23,22 @@ Clang is documented here to try to ensure determinism across platforms, as are t
 - Windows x64 / x86 / Store / UWP / ARM msbuild:
 	- Install Visual Studio 2015+ with C++, cmake and Windows Store/UWP requirements.
 	- > msbuild_winstore.bat
-	- If you run into any issue (which you most likely will) good luck, CMake wants to build everything, you'll have to fiddle around with it.
+	- If you run into any issue (which you most likely will) good luck, CMakeLists wants to build everything, you'll have to fiddle around with it.
 - Unix:
+	- > sudo apt install make
+	- > sudo apt install clang
+	- > cd /src
+	- > make
 - Mac:
+	- > xcode-select --install
+	- > cd /src
+	- > make
+- iOS:
+	- > xcode-select --install
+	- Install xcode
+	- Make sure that your terminal is in dev mode, look at xcode's preferences to change that
+	- > cd /src/iOS/bulletc
+	- > ./build.sh
 - Android under Windows:
 	- [AndroidNDK](https://developer.android.com/ndk/downloads)
 	- > cd to C:\android-ndk-r19c or wherever you installed it
