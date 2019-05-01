@@ -3,6 +3,16 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Debug;Release;ReleaseiOS</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseiOS' ">
+        <DefineConstants>$(DefineConstants);__iOS__</DefineConstants>
     </PropertyGroup>
     
     <ItemGroup>
