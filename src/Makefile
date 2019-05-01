@@ -60,6 +60,7 @@ FILE_LIST := $(wildcard \
 		$(TOP)/bullet/src/BulletCollision/BroadphaseCollision/*.cpp \
 		$(TOP)/bullet/src/BulletCollision/CollisionDispatch/*.cpp \
 		$(TOP)/bullet/src/BulletCollision/CollisionShapes/*.cpp \
+		$(TOP)/bullet/src/BulletCollision/Gimpact/*.cpp \
 		$(TOP)/bullet/src/BulletCollision/NarrowPhaseCollision/*.cpp \
 		$(TOP)/bullet/src/BulletDynamics/ConstraintSolver/*.cpp \
 		$(TOP)/bullet/src/BulletDynamics/Dynamics/*.cpp \
@@ -70,7 +71,6 @@ FILE_LIST := $(wildcard \
 		$(TOP)/bullet/src/BulletSoftBody/*.cpp \
 		$(TOP)/bullet/src/BulletInverseDynamics/*.cpp \
 		$(TOP)/bullet/src/BulletInverseDynamics/details/*.cpp \
-		$(TOP)/bullet/src/BulletCollision/Gimpact/*.cpp \
 		$(TOP)/bullet/Extras/Serialize/BulletFileLoader/*.cpp \
 		$(TOP)/bullet/Extras/Serialize/BulletWorldImporter/*.cpp \
 		$(TOP)/bullet/Extras/Serialize/BulletXmlWorldImporter/*.cpp \
