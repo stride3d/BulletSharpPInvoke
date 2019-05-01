@@ -45,6 +45,12 @@ Clang is documented here to try to ensure determinism across platforms, as are t
 	- > ndk-build -C path_to\BulletSharpPInvoke\src\Android\jni
 	- (building is slow af, see those build files for more info)
 
+##### Building BulletSharpPInvoke:
+- Install latest .Net Standard
+- Set BulletSharp.NetStandard.sln 's configuration to Release or ReleaseiOS if building for iOS
+- Build through dotnet or your C# IDE
+
+
 ---
 
 Original README content:
