@@ -1,0 +1,32 @@
+It builds and works fine with msbuild and co but fails when building through Clang LLVM, I need to build it with clang to guarantee as much determinism as possible across desktop OS.
+
+Here's what I have tried so far:
+- Installed LLVM, bundled mingw32 & 64 in the repo, added path to mingw's bin, ran the makefile. Builds successfully but can't be used because the dll requires references to libstdc++-6 and libgcc_s_seh-1 (not certain as c# just fails to load that specific dll but very much likely as dependency walker cannot find them) which can be resolved through -static-libgcc -static-libstdc++ but then we have a missing libwinpthread-1.
+	- Here's the makefile: https://github.com/Eideren/BulletSharpPInvoke/blob/master/src/Makefile
+
+- Generate a C++ project with cmake and compile it through msbuild (see:msbuild_winstore below), installed vs2019 preview to get clang support, here's the base command :
+	- > cmake ..\..\..\libbulletc\ -G "Visual Studio 16" -A Win32 -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\x86\lib -DCMAKE_CXX_COMPILER:FILEPATH="%" -DCMAKE_C_COMPILER:FILEPATH="%"
+	- > cd /d "C:/Program Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Current/Bin"
+	- > msbuild E:\GitProject\BulletSharpPInvoke\src\msbuild\x86\libbulletc.sln /p:Configuration=Release /p:Toolset=clang_cl_x86 /p:CLToolExe=clang-cl.exe /p:CLToolPath="#"
+	- % is path to clang-cl.exe and # to its dir
+	- Some example of the errors when % points to the installed clang llvm
+		- ``b3Scalar.h(297,15): error :  overloaded 'operator+' must have at least one parameter of class or enumeration type``
+		- more errors with other operator types
+		- ``b3Vector3.h(290,7): error :  argument value 10880 is outside the valid range [0, 255]``
+	- And when % points to visual studio's clang-cl.exe ( /microsoft visual studio/2019/preview/common7/ide/commonextensions/microsoft/Llvm/bin/clang-cl.exe ) mostly linker errors ? 'Not very familiar with c++
+		- ``btCpuFeatureUtility_wrap.obj : error LNK2019: unresolved external symbol ___cpuid referenced in function _btCpuFeatureUtility_getCpuFeatures``
+		- ``btCpuFeatureUtility_wrap.obj : error LNK2019: unresolved external symbol __xgetbv referenced in function _btCpuFeatureUtility_getCpuFeatures``
+		- ``BulletDynamics.lib(btMultiBodyConstraintSolver.obj) : error LNK2001: unresolved external symbol __mm_set_ps1``
+		- ``btTransformUtil_wrap.obj : error LNK2019: unresolved external symbol __mm_cmpeq_ps referenced in function _btTransformUtil_calculateVelocityQuaternion``
+		- and a whole lot more errors refferencing other ``__mm_*`` members
+	- There might be a way to generate it as a visual studio cross platform project, I couldn't find how to do that though
+	- Here's the ``*.bat`` used to generate and compile under msvc: https://github.com/Eideren/BulletSharpPInvoke/blob/master/src/msbuild_winstore.bat
+
+What I want:
+- Compiled with clang 8.0
+- Uses -msse2 -mfpmath=sse -O3
+- Works at least under windows 7 or higher, x64 and x86 (can be compiled on linux to target windows, as long as it works)
+- Can be called from C# through P/Invoke (which it already can under msvc)
+- Does not require more dependencies to run it than msvc's would (one or two dlls alongside it is fine)
+- I need to be able to compile it myself, you can just continue your instructions from either of the two ways I tried above
+- And, of course, does not breach any legal agreement

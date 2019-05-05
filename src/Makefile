@@ -11,8 +11,8 @@ INCLUDE = \
    -I$(TOP)/bullet/examples/ThirdPartyLibs/tinyxml2 \
    -I$(TOP)/libbulletc/src \
 
-CFLAGS = $(INCLUDE) -O3 -Wall -Wno-unused-variable -std=c++14
-LDFLAGS = --shared
+CFLAGS = $(INCLUDE) -O3 -Wall -Wno-unused-variable
+LDFLAGS = --shared -static-libgcc -static-libstdc++
 LIBS =
 EXTENSION = 
 86_TARGET =
@@ -20,6 +20,7 @@ EXTENSION =
 
 
 ifeq ($(OS),Windows_NT)
+	LDFLAGS += -pthread
 	EXTENSION = dll
 	86_TARGET = -target i686-pc-windows-gnu
 	64_TARGET = -target x86_64-pc-windows-gnu
