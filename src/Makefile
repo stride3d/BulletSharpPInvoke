@@ -18,11 +18,20 @@ EXTENSION =
 86_TARGET =
 64_TARGET =
 
+COMM = x64/libbulletc.$(EXTENSION) x86/libbulletc.$(EXTENSION)
 
 ifeq ($(OS),Windows_NT)
+	$(error Windows currently does build successfully but the generated dll has dependencies, see clang_windows git branch for partial work on that front)
 	EXTENSION = dll
 	86_TARGET = -target i686-pc-windows-gnu
 	64_TARGET = -target x86_64-pc-windows-gnu
+
+	ifeq ($(WIN_ARCH_CUSTOM),x64)
+		COMM = x64/libbulletc.$(EXTENSION)
+	endif
+	ifeq ($(WIN_ARCH_CUSTOM),x86)
+		COMM = x86/libbulletc.$(EXTENSION)
+	endif
 else
 	LIBS = -ldl
 	CFLAGS += -fPIC
@@ -38,15 +47,6 @@ else
 	endif
 endif
 
-COMM = x64/libbulletc.$(EXTENSION) x86/libbulletc.$(EXTENSION)
-
-#Windows has special requirements, build is split and run twice, see build_win.bat
-ifeq ($(WIN_ARCH_CUSTOM),x64)
-	COMM = x64/libbulletc.$(EXTENSION)
-endif
-ifeq ($(WIN_ARCH_CUSTOM),x86)
-	COMM = x86/libbulletc.$(EXTENSION)
-endif
 ifeq ($(DETERMINISTIC_BUILD),true)
 # The SSE2 instructions (...) are fully IEEE754-1985 compliant, and they permit better reproducibility 
 # (thanks to the static rounding precision) and portability with other platforms. 
