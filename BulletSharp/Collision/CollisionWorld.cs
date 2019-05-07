@@ -143,7 +143,7 @@ namespace BulletSharp
 
 		private float AddSingleResultUnmanaged(IntPtr cp, IntPtr colObj0Wrap, int partId0, int index0, IntPtr colObj1Wrap, int partId1, int index1)
 		{
-			return AddSingleResult(new ManifoldPoint(cp),
+			return AddSingleResult(ManifoldPoint.FromPtr(cp),
 				new CollisionObjectWrapper(colObj0Wrap), partId0, index0,
 				new CollisionObjectWrapper(colObj1Wrap), partId1, index1);
 		}

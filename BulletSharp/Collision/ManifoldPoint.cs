@@ -7,7 +7,7 @@ using static BulletSharp.UnsafeNativeMethods;
 namespace BulletSharp
 {
 	[Flags]
-	public enum ContactPointFlags
+	public enum ContactPointFlags : int // Do not specify anything else but 'int' here, this enum is used within interop !
 	{
 		None = 0,
 		LateralFrictionInitialized = 1,
@@ -17,9 +17,71 @@ namespace BulletSharp
 		FrictionAnchor = 16
 	}
 
-	public delegate void ContactAddedEventHandler(ManifoldPoint cp, CollisionObjectWrapper colObj0Wrap, int partId0, int index0, CollisionObjectWrapper colObj1Wrap, int partId1, int index1);
+	public delegate void ContactAddedEventHandler(ManifoldPointAlloc cp, CollisionObjectWrapper colObj0Wrap, int partId0, int index0, CollisionObjectWrapper colObj1Wrap, int partId1, int index1);
+	
+	[StructLayout(LayoutKind.Sequential)]
+	public readonly struct ManifoldPoint
+	{
+		public readonly Vector3_Interop m_localPointA;
+		public readonly Vector3_Interop m_localPointB;
+		public readonly Vector3_Interop m_positionWorldOnB;
+		///m_positionWorldOnA is redundant information, see getPositionWorldOnA(), but for clarity
+		public readonly Vector3_Interop m_positionWorldOnA;
+		public readonly Vector3_Interop m_normalWorldOnB;
 
-	public class ManifoldPoint : BulletDisposableObject
+		public readonly float m_distance1;
+		public readonly float m_combinedFriction;
+		public readonly float m_combinedRollingFriction;   //torsional friction orthogonal to contact normal, useful to make spheres stop rolling forever
+		public readonly float m_combinedSpinningFriction;  //torsional friction around contact normal, useful for grasping objects
+		public readonly float m_combinedRestitution;
+
+		//BP mod, store contact triangles.
+		public readonly int m_partId0;
+		public readonly int m_partId1;
+		public readonly int m_index0;
+		public readonly int m_index1;
+
+		public readonly IntPtr m_userPersistentData;
+		//bool			m_lateralFrictionInitialized;
+		public readonly ContactPointFlags m_contactPointFlags;
+
+		public readonly float m_appliedImpulse;
+		public readonly float m_appliedImpulseLateral1;
+		public readonly float m_appliedImpulseLateral2;
+		public readonly float m_contactMotion1;
+		public readonly float m_contactMotion2;
+
+		public readonly float m_contactCFM; //c++ union with m_combinedContactStiffness1
+
+		public readonly float m_contactERP; //c++ union with m_combinedContactDamping1
+
+		public readonly float m_frictionCFM;
+
+		public readonly int m_lifeTime;  //lifetime of the contactpoint in frames
+
+		public readonly Vector3_Interop m_lateralFrictionDir1;
+		public readonly Vector3_Interop m_lateralFrictionDir2;
+		
+		public object m_userPersistentDataManaged
+		{
+			get
+			{
+				if( m_userPersistentData == IntPtr.Zero )
+					return null;
+				return GCHandle.FromIntPtr( m_userPersistentData ).Target;
+			}
+		}
+		
+		/// <summary> == <see cref="m_contactERP"/> </summary>
+		public float m_combinedContactDamping1 => m_contactERP;
+		
+		/// <summary> == <see cref="m_contactCFM"/> </summary>
+		public float m_combinedContactStiffness1 => m_contactCFM;
+		
+		public static ManifoldPoint FromPtr(IntPtr ptr) => Marshal.PtrToStructure<ManifoldPoint>(ptr);
+	}
+
+	public class ManifoldPointAlloc : BulletDisposableObject
 	{
 		private static ContactAddedEventHandler _contactAdded;
 		private static ContactAddedUnmanagedDelegate _contactAddedUnmanaged;
@@ -30,7 +92,7 @@ namespace BulletSharp
 
 		static bool ContactAddedUnmanaged(IntPtr cp, IntPtr colObj0Wrap, int partId0, int index0, IntPtr colObj1Wrap, int partId1, int index1)
 		{
-			_contactAdded.Invoke(new ManifoldPoint(cp), new CollisionObjectWrapper(colObj0Wrap), partId0, index0, new CollisionObjectWrapper(colObj1Wrap), partId1, index1);
+			_contactAdded.Invoke(new ManifoldPointAlloc(cp), new CollisionObjectWrapper(colObj0Wrap), partId0, index0, new CollisionObjectWrapper(colObj1Wrap), partId1, index1);
 			return false;
 		}
 
@@ -56,18 +118,18 @@ namespace BulletSharp
 			}
 		}
 
-		internal ManifoldPoint(IntPtr native)
+		internal ManifoldPointAlloc(IntPtr native)
 		{
 			InitializeSubObject(native, this);
 		}
 
-		public ManifoldPoint()
+		public ManifoldPointAlloc()
 		{
 			IntPtr native = btManifoldPoint_new();
 			InitializeUserOwned(native);
 		}
 
-		public ManifoldPoint(Vector3 pointA, Vector3 pointB, Vector3 normal, float distance)
+		public ManifoldPointAlloc(Vector3 pointA, Vector3 pointB, Vector3 normal, float distance)
 		{
 			IntPtr native = btManifoldPoint_new2(ref pointA, ref pointB, ref normal, distance);
 			InitializeUserOwned(native);

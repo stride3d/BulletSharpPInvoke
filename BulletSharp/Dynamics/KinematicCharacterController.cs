@@ -142,7 +142,7 @@ namespace BulletSharp
                     {
                         ManifoldPoint pt = manifold.GetContactPoint(p);
 
-                        float dist = pt.Distance;
+                        float dist = pt.m_distance1;
 
                         if (dist < -m_maxPenetrationDepth)
                         {
@@ -153,7 +153,7 @@ namespace BulletSharp
                             //  m_touchingNormal = pt.m_normalWorldOnB * directionSign;//??
 
                             //}
-                            m_currentPosition += pt.NormalWorldOnB * directionSign * dist * 0.2f;
+                            m_currentPosition += pt.m_normalWorldOnB.value * directionSign * dist * 0.2f;
                             penetration = true;
                         }
                         else

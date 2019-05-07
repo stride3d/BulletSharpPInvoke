@@ -5,6 +5,8 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Configurations>Debug;Release;ReleaseiOS</Configurations>
         <Platforms>AnyCPU</Platforms>
+        <RootNamespace>BulletSharp</RootNamespace>
+        <LangVersion>Latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
