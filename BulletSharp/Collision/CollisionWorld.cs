@@ -27,15 +27,15 @@ namespace BulletSharp
 			CollisionObjects.Add(rayResult.CollisionObject);
 			if (normalInWorldSpace)
 			{
-				HitNormalWorld.Add(rayResult.HitNormalLocal);
+				HitNormalWorld.Add(rayResult.m_hitNormalLocal);
 			}
 			else
 			{
 				// need to transform normal into worldspace
-				HitNormalWorld.Add(Vector3.TransformCoordinate(rayResult.HitNormalLocal, CollisionObject.WorldTransform.Basis));
+				HitNormalWorld.Add(Vector3.TransformCoordinate(rayResult.m_hitNormalLocal, CollisionObject.WorldTransform.Basis));
 			}
-			HitPointWorld.Add(Vector3.Lerp(RayFromWorld, RayToWorld, rayResult.HitFraction));
-			HitFractions.Add(rayResult.HitFraction);
+			HitPointWorld.Add(Vector3.Lerp(RayFromWorld, RayToWorld, rayResult.m_hitFraction));
+			HitFractions.Add(rayResult.m_hitFraction);
 			return ClosestHitFraction;
 		}
 
@@ -62,21 +62,21 @@ namespace BulletSharp
 		public override float AddSingleResult(ref LocalConvexResult convexResult, bool normalInWorldSpace)
 		{
 			//caller already does the filter on the m_closestHitFraction
-			Debug.Assert(convexResult.HitFraction <= ClosestHitFraction);
+			Debug.Assert(convexResult.m_hitFraction <= ClosestHitFraction);
 
-			ClosestHitFraction = convexResult.HitFraction;
+			ClosestHitFraction = convexResult.m_hitFraction;
 			HitCollisionObject = convexResult.HitCollisionObject;
 			if (normalInWorldSpace)
 			{
-				HitNormalWorld = convexResult.HitNormalLocal;
+				HitNormalWorld = convexResult.m_hitNormalLocal;
 			}
 			else
 			{
 				// need to transform normal into worldspace
-				HitNormalWorld = Vector3.TransformCoordinate(convexResult.HitNormalLocal, HitCollisionObject.WorldTransform.Basis);
+				HitNormalWorld = Vector3.TransformCoordinate(convexResult.m_hitNormalLocal, HitCollisionObject.WorldTransform.Basis);
 			}
-			HitPointWorld = convexResult.HitPointLocal;
-			return convexResult.HitFraction;
+			HitPointWorld = convexResult.m_hitPointLocal;
+			return convexResult.m_hitFraction;
 		}
 
 		public Vector3 ConvexFromWorld { get; set; }
@@ -97,21 +97,21 @@ namespace BulletSharp
 		public override float AddSingleResult(ref LocalRayResult rayResult, bool normalInWorldSpace)
 		{
 			//caller already does the filter on the m_closestHitFraction
-			Debug.Assert(rayResult.HitFraction <= ClosestHitFraction);
+			Debug.Assert(rayResult.m_hitFraction <= ClosestHitFraction);
 
-			ClosestHitFraction = rayResult.HitFraction;
+			ClosestHitFraction = rayResult.m_hitFraction;
 			CollisionObject = rayResult.CollisionObject;
 			if (normalInWorldSpace)
 			{
-				HitNormalWorld = rayResult.HitNormalLocal;
+				HitNormalWorld = rayResult.m_hitNormalLocal;
 			}
 			else
 			{
 				// need to transform normal into worldspace
-				HitNormalWorld = Vector3.TransformCoordinate(rayResult.HitNormalLocal, CollisionObject.WorldTransform.Basis);
+				HitNormalWorld = Vector3.TransformCoordinate(rayResult.m_hitNormalLocal, CollisionObject.WorldTransform.Basis);
 			}
-			HitPointWorld = Vector3.Lerp(RayFromWorld, RayToWorld, rayResult.HitFraction);
-			return rayResult.HitFraction;
+			HitPointWorld = Vector3.Lerp(RayFromWorld, RayToWorld, rayResult.m_hitFraction);
+			return rayResult.m_hitFraction;
 		}
 
 		public Vector3 RayFromWorld { get; set; } //used to calculate hitPointWorld from hitFraction
@@ -206,7 +206,7 @@ namespace BulletSharp
 
 		private float AddSingleResultUnmanaged(IntPtr convexResult, bool normalInWorldSpace)
 		{
-			var convexResultManaged = new LocalConvexResult(convexResult);
+			var convexResultManaged = LocalConvexResult.FromPtr(convexResult);
 			return AddSingleResult(ref convexResultManaged, normalInWorldSpace);
 		}
 
@@ -249,136 +249,56 @@ namespace BulletSharp
 		}
 	}
 
-	public struct LocalConvexResult
+	public readonly struct LocalConvexResult
 	{
-		private readonly IntPtr _native;
-		private CollisionObject _hitCollisionObject;
-
-		internal LocalConvexResult(IntPtr native)
-		{
-			_native = native;
-			_hitCollisionObject = null;
-		}
+		readonly IntPtr m_hitCollisionObject;
+		readonly IntPtr m_localShapeInfo;
+		public readonly Vector3_Interop m_hitNormalLocal;
+		public readonly Vector3_Interop m_hitPointLocal;
+		public readonly float m_hitFraction;
 
 		public CollisionObject HitCollisionObject
 		{
 			get
 			{
-				if (_hitCollisionObject == null)
-				{
-					_hitCollisionObject = CollisionObject.GetManaged(btCollisionWorld_LocalConvexResult_getHitCollisionObject(_native));
-				}
-				return _hitCollisionObject;
-			}
-			set
-			{
-				btCollisionWorld_LocalConvexResult_setHitCollisionObject(_native, value?.Native ?? IntPtr.Zero);
-				_hitCollisionObject = value;
+				if( m_hitCollisionObject == IntPtr.Zero )
+					return null;
+				return CollisionObject.GetManaged(m_hitCollisionObject);
 			}
 		}
 
-		public float HitFraction
-		{
-			get => btCollisionWorld_LocalConvexResult_getHitFraction(_native);
-			set => btCollisionWorld_LocalConvexResult_setHitFraction(_native, value);
-		}
+		public LocalShapeInfo? LocalShapeInfo => m_localShapeInfo == IntPtr.Zero ? (LocalShapeInfo?)null : new LocalShapeInfo(m_localShapeInfo);
 
-		public Vector3 HitNormalLocal
-		{
-			get
-			{
-				Vector3 value;
-				btCollisionWorld_LocalConvexResult_getHitNormalLocal(_native, out value);
-				return value;
-			}
-			set => btCollisionWorld_LocalConvexResult_setHitNormalLocal(_native, ref value);
-		}
-
-		public Vector3 HitPointLocal
-		{
-			get
-			{
-				Vector3 value;
-				btCollisionWorld_LocalConvexResult_getHitPointLocal(_native, out value);
-				return value;
-			}
-			set => btCollisionWorld_LocalConvexResult_setHitPointLocal(_native, ref value);
-		}
-
-		public LocalShapeInfo? LocalShapeInfo
-		{
-			get
-			{
-				IntPtr localShapeInfoPtr = btCollisionWorld_LocalConvexResult_getLocalShapeInfo(_native);
-				return localShapeInfoPtr != IntPtr.Zero
-					? new LocalShapeInfo?(new LocalShapeInfo(localShapeInfoPtr))
-					: null;
-			}
-		}
+		public static LocalConvexResult FromPtr(IntPtr ptr) => Marshal.PtrToStructure<LocalConvexResult>(ptr);
 	}
-
-	public struct LocalRayResult
+	
+	[StructLayout(LayoutKind.Sequential)]
+	public readonly struct LocalRayResult
 	{
-		private readonly IntPtr _native;
-		private CollisionObject _collisionObject;
-
-		internal LocalRayResult(IntPtr native)
-		{
-			_native = native;
-			_collisionObject = null;
-
-		}
+		readonly IntPtr m_collisionObject;
+		readonly IntPtr m_localShapeInfo;
+		public readonly Vector3_Interop m_hitNormalLocal;
+		public readonly float m_hitFraction;
 
 		public CollisionObject CollisionObject
 		{
 			get
 			{
-				if (_collisionObject == null)
-				{
-					_collisionObject = CollisionObject.GetManaged(btCollisionWorld_LocalRayResult_getCollisionObject(_native));
-				}
-				return _collisionObject;
-			}
-			set
-			{
-				btCollisionWorld_LocalRayResult_setCollisionObject(_native, value?.Native ?? IntPtr.Zero);
-				_collisionObject = value;
+				if( m_collisionObject == IntPtr.Zero )
+					return null;
+				return CollisionObject.GetManaged(m_collisionObject);
 			}
 		}
 
-		public float HitFraction
-		{
-			get => btCollisionWorld_LocalRayResult_getHitFraction(_native);
-			set => btCollisionWorld_LocalRayResult_setHitFraction(_native, value);
-		}
+		public LocalShapeInfo? LocalShapeInfo => m_localShapeInfo == IntPtr.Zero ? (LocalShapeInfo?)null : new LocalShapeInfo(m_localShapeInfo);
 
-		public Vector3 HitNormalLocal
-		{
-			get
-			{
-				Vector3 value;
-				btCollisionWorld_LocalRayResult_getHitNormalLocal(_native, out value);
-				return value;
-			}
-			set => btCollisionWorld_LocalRayResult_setHitNormalLocal(_native, ref value);
-		}
-
-		public LocalShapeInfo? LocalShapeInfo
-		{
-			get
-			{
-				IntPtr localShapeInfoPtr = btCollisionWorld_LocalRayResult_getLocalShapeInfo(_native);
-				return localShapeInfoPtr != IntPtr.Zero
-					? new LocalShapeInfo?(new LocalShapeInfo(localShapeInfoPtr))
-					: null;
-			}
-		}
+		public static LocalRayResult FromPtr(IntPtr ptr) => Marshal.PtrToStructure<LocalRayResult>(ptr);
 	}
 
-	public struct LocalShapeInfo
+	public readonly struct LocalShapeInfo
 	{
-		public int ShapePart;
-		public int TriangleIndex;
+		public readonly int ShapePart;
+		public readonly int TriangleIndex;
 
 		internal LocalShapeInfo(IntPtr native)
 		{
@@ -410,7 +330,7 @@ namespace BulletSharp
 
 		private float AddSingleResultUnmanaged(IntPtr rayResult, bool normalInWorldSpace)
 		{
-			var localRayResult = new LocalRayResult(rayResult);
+			var localRayResult = LocalRayResult.FromPtr(rayResult);
 			return AddSingleResult(ref localRayResult, normalInWorldSpace);
 		}
 

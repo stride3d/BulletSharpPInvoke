@@ -1049,12 +1049,12 @@ namespace BulletSharp
             Vector3 hitNormalWorld;
             if (normalInWorldSpace)
             {
-                hitNormalWorld = convexResult.HitNormalLocal;
+                hitNormalWorld = convexResult.m_hitNormalLocal;
             }
             else
             {
                 // need to transform normal into worldspace
-                hitNormalWorld = Vector3.TransformCoordinate(convexResult.HitNormalLocal, convexResult.HitCollisionObject.WorldTransform.Basis);
+                hitNormalWorld = Vector3.TransformCoordinate(convexResult.m_hitNormalLocal, convexResult.HitCollisionObject.WorldTransform.Basis);
             }
 
             float dotUp;
