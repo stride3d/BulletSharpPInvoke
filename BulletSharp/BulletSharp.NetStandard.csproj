@@ -30,7 +30,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="Xenko.Core.Mathematics" Version="[0.0.0.0-a,]" />
+      <PackageReference Include="Stride.Core.Mathematics" Version="[0.0.0.0-a,]" />
     </ItemGroup>
 
 </Project>

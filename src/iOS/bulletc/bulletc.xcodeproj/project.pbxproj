@@ -2031,7 +2031,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = Xenko;
+				ORGANIZATIONNAME = Stride;
 			};
 			buildConfigurationList = 99335A5B197AC7D3000650DA /* Build configuration list for PBXProject "bulletc" */;
 			compatibilityVersion = "Xcode 3.2";

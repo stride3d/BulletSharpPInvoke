@@ -3032,13 +3032,13 @@ namespace BulletSharp.Math
 #endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Xenko.Core.Mathematics.Matrix(Matrix value)
+        public static implicit operator Stride.Core.Mathematics.Matrix(Matrix value)
         {
             // 11, 22, 33 & 44's offsets are shared, ~10% faster
-            Xenko.Core.Mathematics.Matrix d;
+            Stride.Core.Mathematics.Matrix d;
             unsafe
             {
-                d = *(Xenko.Core.Mathematics.Matrix*)&value;
+                d = *(Stride.Core.Mathematics.Matrix*)&value;
             }
             //11
             d.M12 = value.M12;
@@ -3060,7 +3060,7 @@ namespace BulletSharp.Math
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Matrix(Xenko.Core.Mathematics.Matrix value)
+        public static implicit operator Matrix(Stride.Core.Mathematics.Matrix value)
         {
             // 11, 22, 33 & 44's offsets are shared, ~10% faster
             Matrix d;

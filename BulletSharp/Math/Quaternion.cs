@@ -1347,13 +1347,13 @@ namespace BulletSharp.Math
 #endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Xenko.Core.Mathematics.Quaternion(Quaternion value)
+        public static implicit operator Stride.Core.Mathematics.Quaternion(Quaternion value)
         {
-            unsafe { return *(Xenko.Core.Mathematics.Quaternion*)&value; }
+            unsafe { return *(Stride.Core.Mathematics.Quaternion*)&value; }
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Quaternion(Xenko.Core.Mathematics.Quaternion value)
+        public static implicit operator Quaternion(Stride.Core.Mathematics.Quaternion value)
         {
             unsafe { return *(Quaternion*)&value; }
         }

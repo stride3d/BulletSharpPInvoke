@@ -1,4 +1,4 @@
-This repo houses bullet 2, the physics engine used within [Xenko](https://github.com/xenko3d/xenko), its C++ / C# wrapper and build scripts for the different supported platforms.
+This repo houses bullet 2, the physics engine used within [Stride](https://github.com/stride3d/stride), its C++ / C# wrapper and build scripts for the different supported platforms.
 - bullet => Official bullet repo
 - libbulletc => C++ wrapper
 - BulletSharp => C# wrapper around C++ wrapper
