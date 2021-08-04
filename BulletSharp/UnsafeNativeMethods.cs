@@ -3,6 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("Stride.Physics")]
 namespace BulletSharp
 {
 	[SuppressUnmanagedCodeSecurity]
