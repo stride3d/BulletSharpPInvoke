@@ -14,9 +14,10 @@ INCLUDE = \
 CFLAGS = $(INCLUDE) -O3 -Wall -Wno-unused-variable -std=c++14
 LDFLAGS = --shared
 LIBS =
-EXTENSION = 
+EXTENSION =
 86_TARGET =
 64_TARGET =
+ARM64_TARGET =
 
 COMM = x64/libbulletc.$(EXTENSION) x86/libbulletc.$(EXTENSION)
 
@@ -43,13 +44,15 @@ else
 		EXTENSION = so
 	endif
 	ifeq ($(UNAME_S),Darwin)
+		COMM = arm64/libbulletc.$(EXTENSION) x64/libbulletc.$(EXTENSION) x86/libbulletc.$(EXTENSION)
+		64_TARGET = -arch arm64
 		EXTENSION = dylib
 	endif
 endif
 
 ifeq ($(DETERMINISTIC_BUILD),true)
-# The SSE2 instructions (...) are fully IEEE754-1985 compliant, and they permit better reproducibility 
-# (thanks to the static rounding precision) and portability with other platforms. 
+# The SSE2 instructions (...) are fully IEEE754-1985 compliant, and they permit better reproducibility
+# (thanks to the static rounding precision) and portability with other platforms.
 # -Muller et aliis, Handbook of Floating-Point Arithmetic - p.107
 	CFLAGS += -msse2 -mfpmath=sse
 endif
@@ -85,8 +88,14 @@ OBJECTS=$(LOCAL_SRC_FILES:.cpp=.o)
 
 all: $(COMM)
 
+arm64/libbulletc.$(EXTENSION): $(LOCAL_SRC_FILES)
+	mkdir -p arm64
+	clang++ $(64_TARGET) $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
+
 x64/libbulletc.$(EXTENSION): $(LOCAL_SRC_FILES)
+	mkdir -p x64
 	clang++ $(64_TARGET) $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
 
 x86/libbulletc.$(EXTENSION): $(LOCAL_SRC_FILES)
+	mkdir -p x86
 	clang++ $(86_TARGET) $(LDFLAGS) $(CFLAGS) $(LOCAL_SRC_FILES) $(INCLUDE) -o $@ $(LIBS)
