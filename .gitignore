@@ -3,3 +3,5 @@ bin
 packages
 *.suo
 *.user
+.DS_Store
+libbulletc.dylib
