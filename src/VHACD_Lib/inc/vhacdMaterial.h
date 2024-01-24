@@ -15,8 +15,8 @@
 #pragma once
 #ifndef VHACD_MATERIAL_H
 #define VHACD_MATERIAL_H
-#include <VHACDVersion.h>
-#include <VHACDVector.h>
+#include <vhacdVersion.h>
+#include <vhacdVector.h>
 namespace VHACD
 {
     struct Material

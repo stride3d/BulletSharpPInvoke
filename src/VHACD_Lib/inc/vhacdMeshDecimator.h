@@ -19,10 +19,10 @@ All rights reserved.
 #include <set>
 #include <vector>
 #include <limits>
-#include <VHACDVersion.h>
-#include <VHACDVector.h>
-#include <VHACDSArray.h>
-#include <VHACDMesh.h>
+#include <vhacdVersion.h>
+#include <vhacdVector.h>
+#include <vhacdSArray.h>
+#include <vhacdMesh.h>
 
 namespace VHACD
 {
