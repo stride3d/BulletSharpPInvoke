@@ -15,10 +15,10 @@
 #pragma once
 #ifndef VHACD_VHACD_H
 #define VHACD_VHACD_H
-#include <VHACDVersion.h>
-#include <VHACDVector.h>
-#include <VHACDGraph.h>
-#include <VHACDMesh.h>
+#include <vhacdVersion.h>
+#include <vhacdVector.h>
+#include <vhacdGraph.h>
+#include <vhacdMesh.h>
 #include <set>
 #include <vector>
 #include <queue>

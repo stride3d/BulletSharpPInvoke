@@ -17,7 +17,7 @@
 #define VHACD_VECTOR_H
 #include<math.h>
 #include<iostream>
-#include<VHACDVersion.h>
+#include<vhacdVersion.h>
 
 namespace VHACD
 {
@@ -107,5 +107,5 @@ namespace VHACD
     const T Volume(const Vec3<T> & a, const Vec3<T> & b, const Vec3<T> & c, const Vec3<T> & d);
     
 }
-#include "VHACDVector.inl"	// template implementation
+#include "vhacdVector.inl"	// template implementation
 #endif

@@ -14,13 +14,13 @@
  */
 #define _CRT_SECURE_NO_WARNINGS
 #include <sstream>
-#include <VHACDGraph.h>
-#include <VHACDHACD.h>
+#include <vhacdHACD.h>
+#include <vhacdHACD.h>
 #include <string.h>
 #include <algorithm>
 #include <iterator>
 #include <limits>
-#include <VHACDMeshDecimator.h>
+#include <vhacdMeshDecimator.h>
 #include <btConvexHullComputer.h>
 #include <limits>
 #include <fstream>

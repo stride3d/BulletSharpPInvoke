@@ -15,12 +15,12 @@
 #pragma once
 #ifndef VHACD_GRAPH_H
 #define VHACD_GRAPH_H
-#include <VHACDVersion.h>
-#include <VHACDVector.h>
+#include <vhacdVersion.h>
+#include <vhacdVector.h>
 #include <map>
 #include <vector>
-#include <VHACDSArray.h>
-#include <VHACDMesh.h>
+#include <vhacdSArray.h>
+#include <vhacdMesh.h>
 
 namespace VHACD
 {

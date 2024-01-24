@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <vector>
-#include <VHACDMeshDecimator.h>
+#include <vhacdMeshDecimator.h>
 #define _CRT_SECURE_NO_WARNINGS
 namespace VHACD
 {
