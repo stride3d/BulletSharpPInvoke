@@ -15,7 +15,8 @@
 #pragma once
 #ifndef VHACD_VHACD_H
 #define VHACD_VHACD_H
-#include <vhacdVersion.h>
+#define VHACD_VERSION_MAJOR 0
+#define VHACD_VERSION_MINOR 0
 #include <vhacdVector.h>
 #include <vhacdGraph.h>
 #include <vhacdMesh.h>

@@ -15,7 +15,6 @@
 #pragma once
 #ifndef VHACD_GRAPH_H
 #define VHACD_GRAPH_H
-#include <vhacdVersion.h>
 #include <vhacdVector.h>
 #include <map>
 #include <vector>
