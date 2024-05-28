@@ -17,7 +17,6 @@
 #define VHACD_VECTOR_H
 #include<math.h>
 #include<iostream>
-#include<vhacdVersion.h>
 
 namespace VHACD
 {

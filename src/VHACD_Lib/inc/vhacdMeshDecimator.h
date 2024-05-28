@@ -19,7 +19,6 @@ All rights reserved.
 #include <set>
 #include <vector>
 #include <limits>
-#include <vhacdVersion.h>
 #include <vhacdVector.h>
 #include <vhacdSArray.h>
 #include <vhacdMesh.h>

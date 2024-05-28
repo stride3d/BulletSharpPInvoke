@@ -15,7 +15,6 @@
 #pragma once
 #ifndef VHACD_SARRAY_H
 #define VHACD_SARRAY_H
-#include<vhacdVersion.h>
 #include<stdio.h>
 #include <string.h>
 #include <stdlib.h>

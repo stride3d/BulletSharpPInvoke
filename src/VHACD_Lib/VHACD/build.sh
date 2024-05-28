@@ -1,0 +1,1 @@
+clang -shared -fPIC -o VHACD.so wrapper.cpp ../src/*  -I../inc/
