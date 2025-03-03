@@ -1,14 +1,21 @@
 REM Windows
 mkdir msbuild\x86
 pushd msbuild\x86
-cmake ..\..\..\libbulletc\ -G "Visual Studio 15" -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\x86\lib
+cmake ..\..\..\libbulletc\ -G "Visual Studio 17 2022" -A Win32 -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\x86\lib
 msbuild libbulletc.sln /p:Configuration=Release
 if %ERRORLEVEL% neq 0 GOTO :error_popd
 popd
 
 mkdir msbuild\x64
 pushd msbuild\x64
-cmake ..\..\..\libbulletc\ -G "Visual Studio 15 Win64" -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\x64\lib
+cmake ..\..\..\libbulletc\ -G "Visual Studio 17 2022" -A X64 -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\x64\lib
+msbuild libbulletc.sln /p:Configuration=Release
+if %ERRORLEVEL% neq 0 GOTO :error_popd
+popd
+
+mkdir msbuild\arm64
+pushd msbuild\arm64
+cmake ..\..\..\libbulletc\ -G "Visual Studio 17 2022" -A ARM64 -DBUILD_MULTITHREADING=OFF -DBULLET_LIBS_DIR=..\..\..\bullet\Windows\arm64\lib
 msbuild libbulletc.sln /p:Configuration=Release
 if %ERRORLEVEL% neq 0 GOTO :error_popd
 popd

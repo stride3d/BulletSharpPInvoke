@@ -12,6 +12,7 @@ This repo houses bullet 2, the physics engine used within [Stride](https://githu
 - Windows x64 / x86 / Store / UWP / ARM msbuild:
 	- Install Visual Studio 2015+ with C++, cmake and Windows Store/UWP requirements.
 	- > msbuild_winstore.bat
+	- Cherry-pick e4414c80232d66f8a250aa83f934594bcba3c605 in bullet submodule to fix build on win-arm64
 	- If you run into any issue (which you most likely will) good luck, CMakeLists wants to build everything, you'll have to fiddle around with it.
 - Unix:
 	- > sudo apt install make
