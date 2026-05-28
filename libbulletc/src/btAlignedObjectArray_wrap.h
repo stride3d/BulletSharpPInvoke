@@ -69,6 +69,9 @@ extern "C" {
 	EXPORT int btAlignedObjectArray_btSoftBody_Node_size(btAlignedObjectArray_btSoftBody_Node* obj);
 
 	EXPORT btSoftBody_Note* btAlignedObjectArray_btSoftBody_Note_at(btAlignedObjectArray_btSoftBody_Note* obj, int n);
+	EXPORT int btAlignedObjectArray_btSoftBody_Note_index_of(btAlignedObjectArray_btSoftBody_Note* obj, btSoftBody_Note* val);
+	EXPORT void btAlignedObjectArray_btSoftBody_Note_push_back(btAlignedObjectArray_btSoftBody_Note* obj, btSoftBody_Note* val);
+	EXPORT void btAlignedObjectArray_btSoftBody_Note_resizeNoInitialize(btAlignedObjectArray_btSoftBody_Note* obj, int newSize);
 	EXPORT int btAlignedObjectArray_btSoftBody_Note_size(btAlignedObjectArray_btSoftBody_Note* obj);
 
 	EXPORT btSoftBody_Tetra* btAlignedObjectArray_btSoftBody_Tetra_at(btAlignedObjectArray_btSoftBody_Tetra* obj, int n);

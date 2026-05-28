@@ -4,6 +4,12 @@
 
 #include "btCollisionConfiguration_wrap.h"
 
+btCollisionAlgorithmCreateFunc* btCollisionConfiguration_getClosestPointsAlgorithmCreateFunc(
+	btCollisionConfiguration* obj, int proxyType0, int proxyType1)
+{
+	return obj->getClosestPointsAlgorithmCreateFunc(proxyType0, proxyType1);
+}
+
 btCollisionAlgorithmCreateFunc* btCollisionConfiguration_getCollisionAlgorithmCreateFunc(
 	btCollisionConfiguration* obj, int proxyType0, int proxyType1)
 {

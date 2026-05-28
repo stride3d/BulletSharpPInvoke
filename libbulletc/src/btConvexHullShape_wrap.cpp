@@ -36,6 +36,11 @@ int btConvexHullShape_getNumPoints(btConvexHullShape* obj)
 	return obj->getNumPoints();
 }
 
+btVector3* btConvexHullShape_getPoints(btConvexHullShape* obj)
+{
+	return obj->getUnscaledPoints();
+}
+
 void btConvexHullShape_getScaledPoint(btConvexHullShape* obj, int i, btVector3* value)
 {
 	ATTRIBUTE_ALIGNED16(btVector3) temp = obj->getScaledPoint(i);

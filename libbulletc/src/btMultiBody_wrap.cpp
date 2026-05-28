@@ -128,11 +128,10 @@ void btMultiBody_clearVelocities(btMultiBody* obj)
 
 void btMultiBody_computeAccelerationsArticulatedBodyAlgorithmMultiDof(btMultiBody* obj,
 	btScalar dt, btAlignedObjectArray_btScalar* scratch_r, btAlignedObjectArray_btVector3* scratch_v,
-	btAlignedObjectArray_btMatrix3x3* scratch_m, bool isConstraintPass, bool jointFeedbackInWorldSpace,
-	bool jointFeedbackInJointFrame)
+	btAlignedObjectArray_btMatrix3x3* scratch_m, bool isConstraintPass)
 {
 	obj->computeAccelerationsArticulatedBodyAlgorithmMultiDof(dt, *scratch_r, *scratch_v,
-		*scratch_m, isConstraintPass, jointFeedbackInWorldSpace, jointFeedbackInJointFrame);
+		*scratch_m, isConstraintPass, false, false);
 }
 
 void btMultiBody_fillConstraintJacobianMultiDof(btMultiBody* obj, int link, const btVector3* contact_point,
