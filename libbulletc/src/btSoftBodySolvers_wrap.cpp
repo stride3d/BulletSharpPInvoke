@@ -1,3 +1,4 @@
+#include <BulletSoftBody/btSoftBody.h>
 #include <BulletSoftBody/btSoftBodySolvers.h>
 
 #include "btSoftBodySolvers_wrap.h"
