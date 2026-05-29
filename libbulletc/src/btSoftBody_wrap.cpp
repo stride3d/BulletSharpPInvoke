@@ -2514,6 +2514,12 @@ void btSoftBody_getInitialWorldTransform(btSoftBody* obj, btTransform* value)
 	BTTRANSFORM_SET(value, obj->m_initialWorldTransform);
 }
 
+void btSoftBody_setInitialWorldTransform(btSoftBody* obj, const btTransform* value)
+{
+	BTTRANSFORM_IN(value);
+	obj->m_initialWorldTransform = BTTRANSFORM_USE(value);
+}
+
 btAlignedObjectArray_btSoftBody_JointPtr* btSoftBody_getJoints(btSoftBody* obj)
 {
 	return &obj->m_joints;
