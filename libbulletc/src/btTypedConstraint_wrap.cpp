@@ -113,6 +113,23 @@ btScalar btTypedConstraint_btConstraintInfo2_getErp(btTypedConstraint_btConstrai
 	return obj->erp;
 }
 
+// findex was removed from btConstraintInfo2 upstream
+// (bullet3 commit 149129826 "remove unused findex from btTypedConstraint.h").
+// BulletSharp's managed wrapper still declares get/setFindex P/Invokes; provide no-op
+// stubs so .NET-iOS static link succeeds and any rare caller gets predictable NULL/no-op
+// rather than EntryPointNotFound.
+int* btTypedConstraint_btConstraintInfo2_getFindex(btTypedConstraint_btConstraintInfo2* obj)
+{
+	(void)obj;
+	return nullptr;
+}
+
+void btTypedConstraint_btConstraintInfo2_setFindex(btTypedConstraint_btConstraintInfo2* obj, int* value)
+{
+	(void)obj;
+	(void)value;
+}
+
 btScalar btTypedConstraint_btConstraintInfo2_getFps(btTypedConstraint_btConstraintInfo2* obj)
 {
 	return obj->fps;
