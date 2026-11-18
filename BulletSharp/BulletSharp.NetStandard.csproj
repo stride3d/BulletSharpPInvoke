@@ -30,7 +30,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="Stride.Core.Mathematics" Version="[0.0.0.0-a,]" />
+      <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     </ItemGroup>
 
 </Project>

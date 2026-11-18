@@ -1347,13 +1347,13 @@ namespace BulletSharp.Math
 #endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Stride.Core.Mathematics.Quaternion(Quaternion value)
+        public static implicit operator System.Numerics.Quaternion(Quaternion value)
         {
-            unsafe { return *(Stride.Core.Mathematics.Quaternion*)&value; }
+            unsafe { return *(System.Numerics.Quaternion*)&value; }
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Quaternion(Stride.Core.Mathematics.Quaternion value)
+        public static implicit operator Quaternion(System.Numerics.Quaternion value)
         {
             unsafe { return *(Quaternion*)&value; }
         }

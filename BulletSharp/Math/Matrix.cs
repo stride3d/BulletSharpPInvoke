@@ -3032,59 +3032,16 @@ namespace BulletSharp.Math
 #endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Stride.Core.Mathematics.Matrix(Matrix value)
+        public static implicit operator System.Numerics.Matrix4x4(Matrix value)
         {
-            // 11, 22, 33 & 44's offsets are shared, ~10% faster
-            Stride.Core.Mathematics.Matrix d;
-            unsafe
-            {
-                d = *(Stride.Core.Mathematics.Matrix*)&value;
-            }
-            //11
-            d.M12 = value.M12;
-            d.M13 = value.M13;
-            d.M14 = value.M14;
-            d.M21 = value.M21;
-            //22
-            d.M23 = value.M23;
-            d.M24 = value.M24;
-            d.M31 = value.M31;
-            d.M32 = value.M32;
-            //33
-            d.M34 = value.M34;
-            d.M41 = value.M41;
-            d.M42 = value.M42;
-            d.M43 = value.M43;
-            //44
-            return d;
+            // The same memory: both store their elements row by row
+            unsafe { return *(System.Numerics.Matrix4x4*)&value; }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Matrix(Stride.Core.Mathematics.Matrix value)
+        public static implicit operator Matrix(System.Numerics.Matrix4x4 value)
         {
-            // 11, 22, 33 & 44's offsets are shared, ~10% faster
-            Matrix d;
-            unsafe
-            {
-                d = *(Matrix*)&value;
-            }
-            //11
-            d.M12 = value.M12;
-            d.M13 = value.M13;
-            d.M14 = value.M14;
-            d.M21 = value.M21;
-            //22
-            d.M23 = value.M23;
-            d.M24 = value.M24;
-            d.M31 = value.M31;
-            d.M32 = value.M32;
-            //33
-            d.M34 = value.M34;
-            d.M41 = value.M41;
-            d.M42 = value.M42;
-            d.M43 = value.M43;
-            //44
-            return d;
+            unsafe { return *(Matrix*)&value; }
         }
     }
 

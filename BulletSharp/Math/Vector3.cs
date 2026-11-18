@@ -1912,13 +1912,13 @@ namespace BulletSharp.Math
 #endif
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Stride.Core.Mathematics.Vector3(Vector3 value)
+        public static implicit operator System.Numerics.Vector3(Vector3 value)
         {
-            unsafe { return *(Stride.Core.Mathematics.Vector3*)&value; }
+            unsafe { return *(System.Numerics.Vector3*)&value; }
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Vector3(Stride.Core.Mathematics.Vector3 value)
+        public static implicit operator Vector3(System.Numerics.Vector3 value)
         {
             unsafe { return *(Vector3*)&value; }
         }

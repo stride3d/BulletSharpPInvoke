@@ -14,9 +14,9 @@ namespace BulletSharp.Math
 		[FieldOffset(12)] public readonly float unusedW;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static implicit operator Stride.Core.Mathematics.Vector3(Vector3_Interop value)
+		public static implicit operator System.Numerics.Vector3(Vector3_Interop value)
 		{
-			unsafe { return *(Stride.Core.Mathematics.Vector3*)&value; }
+			unsafe { return *(System.Numerics.Vector3*)&value; }
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
